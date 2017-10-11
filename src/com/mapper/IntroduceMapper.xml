@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.IntroduceMapper" >
+  <resultMap id="BaseResultMap" type="com.entity.Introduce" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.entity.Introduce" extends="BaseResultMap" >
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <select id="findIntroduce" parameterType="com.entity.Introduce" resultType="com.entity.Introduce" >
+    select * from introduce
+  </select>
+  <insert id="insertIntroduce" parameterType="com.entity.Introduce" >
+    insert into introduce (id,content) values (#{id,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateIntroduce" parameterType="com.entity.Introduce" >
+    update introduce
+    set content = #{content,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

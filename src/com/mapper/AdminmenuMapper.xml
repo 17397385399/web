@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.AdminmenuMapper" >
+  <resultMap id="BaseResultMap" type="com.entity.Adminmenu" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="showname" property="showname" jdbcType="VARCHAR" />
+    <result column="ishasson" property="ishasson" jdbcType="INTEGER" />
+    <result column="parentid" property="parentid" jdbcType="VARCHAR" />
+    <result column="nodeurl" property="nodeurl" jdbcType="VARCHAR" />
+    <result column="isnewblank" property="isnewblank" jdbcType="VARCHAR" />
+    <result column="creattime" property="creattime" jdbcType="TIMESTAMP" />
+    <result column="sort" property="sort" jdbcType="VARCHAR" />
+    <result column="iconfont" jdbcType="VARCHAR" property="iconfont" />
+  </resultMap>
+  <select id="findAdminMenu" parameterType="com.entity.Adminmenu" resultType="com.entity.Adminmenu">
+	SELECT * FROM adminmenu WHERE ParentId='-1' ORDER BY sort ASC
+  </select>
+    <select id="findAdminMenu2" parameterType="com.entity.Adminmenu" resultType="com.entity.Adminmenu">
+	SELECT * FROM adminmenu WHERE ParentId=#{id,jdbcType=VARCHAR} ORDER BY sort ASC
+  </select>
+</mapper>

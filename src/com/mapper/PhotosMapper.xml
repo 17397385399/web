@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.PhotosMapper">
+  <resultMap id="BaseResultMap" type="com.entity.Photos">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="albumId" jdbcType="VARCHAR" property="albumid" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="sort" jdbcType="VARCHAR" property="sort" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createtime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.entity.Photos">
+    <result column="description" jdbcType="LONGVARCHAR" property="description" />
+  </resultMap>
+  <select id="findPhotos" parameterType="com.entity.Photos" resultType="com.entity.Photos">
+    SELECT * FROM photos WHERE sort='1' AND albumId IN(SELECT id FROM album where isShow=0) 
+  </select>
+  <select id="selectPhotosCount" parameterType="com.entity.Photos" resultType="java.lang.String" >
+		SELECT count(*) FROM Photos
+  </select>
+  <select id="findPhotosList" parameterType="com.entity.PhotosDto" resultType="com.entity.Photos">
+    SELECT * FROM photos WHERE albumId=#{albumid} limit #{start},#{count}
+  </select>
+  <select id="total" resultType="int">
+    select count(*) from photos where albumId=#{albumid}     
+  </select>  
+</mapper>

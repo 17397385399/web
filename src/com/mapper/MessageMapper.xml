@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.MessageMapper" >
+  <resultMap id="BaseResultMap" type="com.entity.Message" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="createrTime" property="creatertime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.entity.Message" extends="BaseResultMap" >
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+
+  <insert id="insert" parameterType="com.entity.Message" >
+    insert into message (id, email, mobile,createrTime, content)
+    values (#{id,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{creatertime,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARCHAR})
+  </insert>
+  <select id="selectMessageCount" parameterType="com.entity.Message" resultType="java.lang.String" >
+		SELECT count(*) FROM Message
+  </select>
+  <select id="selectMessageList" parameterType="com.entity.Message" resultType="com.entity.Message" >
+		SELECT * FROM Message  ORDER BY createrTime DESC limit #{start},#{count}
+  </select>
+  <select id="total" resultType="int">
+    select count(*) from Message  
+  </select>
+</mapper>

@@ -1,0 +1,6 @@
+前台：http://localhost:8080/Company/index/main.action
+
+后台：http://localhost:8080/News/admin/login.action
+
+用户名：admin
+密码：  123

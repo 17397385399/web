@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.AlbumMapper">
+  <resultMap id="BaseResultMap" type="com.entity.Album">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="sort" jdbcType="VARCHAR" property="sort" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="isShow" jdbcType="INTEGER" property="isshow" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.entity.Album">
+    <result column="description" jdbcType="LONGVARCHAR" property="description" />
+  </resultMap>
+  <select id="selectAlbumList" parameterType="com.entity.AlbumDto" resultType="com.entity.Album">
+    select * from album where isshow=0 ORDER BY sort ASC limit #{start},#{count}
+  </select>
+  <select id="total" resultType="int">
+    select count(*) from album where isshow=0    
+  </select>
+</mapper>
